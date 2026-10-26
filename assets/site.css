@@ -1,0 +1,102 @@
+/* likelymalicious.com shared styles */
+
+/* font-face:start */
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: block;
+}
+/* font-face:end */
+
+:root {
+  /* Layout: one full-bleed dark stage with the logo centered; the red dot is the only moving actor */
+  --bg: #050607;
+  --bg-lift: #0C0F13;
+  --ink: #E6EAF0;
+  --muted: #97A1B1;
+  --red: #FF6A5C;
+  --f: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- intro stage ---------- */
+.stage {
+  position: fixed; inset: 0; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 46%, var(--bg-lift) 0%, var(--bg) 62%);
+  -webkit-user-select: none; user-select: none;
+}
+.grain { position: absolute; inset: 0; opacity: .05; pointer-events: none; z-index: 6; }
+.group {
+  position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; align-items: center; z-index: 2;
+}
+
+/* the logo: works without JavaScript; the .js class hands it to the animation */
+.logo {
+  font-family: var(--f); font-stretch: 125%; font-size: clamp(22px, 6.4vw, 72px);
+  line-height: 1; letter-spacing: -.01em; white-space: nowrap; margin: 0;
+}
+.logo .l, .logo .c, .logo .d { font-weight: 300; color: var(--muted); }
+.logo .m { font-weight: 800; color: var(--ink); }
+.logo .d { color: var(--red); }
+.logo .dc { display: inline; }
+.logo.stacked { white-space: normal; text-align: left; }
+.logo.stacked .l, .logo.stacked .m, .logo.stacked .dc { display: block; }
+.logo.stacked .dc { margin-top: -.08em; }
+.bl { display: inline-block; width: 0; height: 0; }
+
+.uc {
+  font-family: var(--f); font-stretch: 125%; font-weight: 400; font-size: 12px; line-height: 1;
+  letter-spacing: .42em; padding-left: .42em; margin-top: 2em; color: var(--muted); white-space: nowrap;
+}
+.uc span { display: inline-block; will-change: transform, opacity; }
+
+.fx { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; will-change: transform, opacity; }
+.dot { background: var(--red); z-index: 3; }
+.halo {
+  width: 240px; height: 240px; border-radius: 50%; z-index: 1;
+  background: radial-gradient(closest-side, rgba(255,106,92,.36), rgba(255,106,92,0));
+}
+
+.js .stage .logo { opacity: 0; }
+.js .stage .logo .d { color: transparent; }
+.js .stage .uc span { opacity: 0; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- 404 ---------- */
+.nf {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+  padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px));
+  background: radial-gradient(120% 90% at 50% 46%, var(--bg-lift) 0%, var(--bg) 62%);
+  text-align: center;
+}
+.nf .logo { font-size: clamp(22px, 6.4vw, 60px); }
+.nf .code {
+  margin: 0; font-family: var(--f); font-stretch: 125%; font-weight: 400; font-size: 13px; line-height: 1;
+  letter-spacing: .42em; padding-left: .42em; color: var(--muted);
+}
+.nf a {
+  font-family: var(--f); font-stretch: 112%; font-weight: 600; font-size: 15px;
+  color: var(--ink); text-decoration: none; padding: 10px 2px 4px; border-bottom: 1px solid var(--red);
+}
+.nf a:hover { color: #FFFFFF; }
+.nf a:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
